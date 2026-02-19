@@ -75,3 +75,6 @@ for entry in $GITIGNORE_ENTRIES; do
     printf "%s\n" "$entry" >> "$PWD/.gitignore"
   fi
 done
+
+# Codex の npm パッケージをインストールします。
+npm install -g @openai/codex

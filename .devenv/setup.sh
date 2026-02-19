@@ -22,5 +22,5 @@ for entry in $GITIGNORE_ENTRIES; do
 done
 
 ln -sfn "$PWD/.devenv/run.sh" "$PWD/.envrc"
-bash "$PWD/.devenv/setup_codex.sh"
 bash "$PWD/.devenv/setup_nvm.sh"
+bash "$PWD/.devenv/setup_codex.sh"
