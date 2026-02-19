@@ -2,35 +2,32 @@
 set -euo pipefail
 
 # nvm / Node.js のセットアップ担当です。
-# 目的:
-# - nvm があれば読み込む
-# - .nvmrc がなければ既定値（lts/*）を作成
-# - 指定バージョンをインストールし、即時利用可能にする
+# nvm 読み込み、`.nvmrc` 補完、指定バージョンの導入と有効化を行います。
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 
-# リポジトリの .gitignore へ追記するエントリです。
+# リポジトリの `.gitignore` に追記するエントリです。
 GITIGNORE_ENTRIES="
 .nvmrc
 node_modules
 "
 
-# .gitignore がなければ作成します（後段で追記するため）。
+# `.gitignore` がなければ作成します。
 if [ ! -f "$PWD/.gitignore" ]; then
   touch "$PWD/.gitignore"
 fi
 
-# .gitignore に同一行があるかを固定文字列・行完全一致で判定します。
+# `.gitignore` に同一行があるかを固定文字列の完全一致で判定します。
 for entry in $GITIGNORE_ENTRIES; do
   exists_in_gitignore() {
     grep -Fqx -- "$1" "$PWD/.gitignore"
   }
-  # 未登録エントリのみ追記し、重複行の増殖を防ぎます。
+  # 未登録エントリだけを追記して重複を防ぎます。
   if ! exists_in_gitignore "$entry"; then
     printf "%s\n" "$entry" >> "$PWD/.gitignore"
   fi
 done
 
-# nvm 未導入時は失敗扱いにせず案内のみで終了します。
+# nvm 未導入時は失敗扱いにせず、案内のみで終了します。
 # このスクリプト単体の失敗で全セットアップを止めないためです。
 if [ ! -s "$NVM_DIR/nvm.sh" ]; then
   echo "[nvm] not found: $NVM_DIR/nvm.sh" >&2
@@ -40,7 +37,7 @@ fi
 
 . "$NVM_DIR/nvm.sh"
 
-# .nvmrc がない場合は LTS 最新系列を既定値として採用します。
+# `.nvmrc` がない場合は LTS 最新系列を既定値として採用します。
 if [ ! -f "$PWD/.nvmrc" ]; then
   printf "lts/*\n" > "$PWD/.nvmrc"
 fi
@@ -52,7 +49,7 @@ if [ -z "$target" ]; then
   exit 1
 fi
 
-# npm も最新化しつつ対象 Node を導入します。
-# 以降の `npm` 系コマンドが即利用できるように use まで実行します。
+# npm も更新しつつ対象 Node を導入します。
+# 続く `npm` コマンドを即利用できるよう `use` まで実行します。
 nvm install "$target" --latest-npm
 nvm use --silent "$target" >/dev/null

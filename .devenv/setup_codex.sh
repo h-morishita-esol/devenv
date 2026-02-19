@@ -1,27 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Codex 用ホーム配下の初期化を行います。
-# - 必要ファイルのリンク/コピー
-# - .gitignore への管理対象外パス追加
-# 先に run_codex.sh を読み込み、CODEX_HOME 系の環境変数を確定させます。
+# Codex 用ホーム配下を初期化します。
+# 必要ファイルのリンク/コピーと `.gitignore` 追記を行います。
+# 先に `run_codex.sh` を読み込み、CODEX_HOME 系の値を確定させます。
 source "$PWD/.devenv/run_codex.sh"
 
-# 共有元（$HOME/.codex）からシンボリックリンクで扱うファイル群です。
-# 更新を即反映したい設定/認証情報を対象にしています。
+# 共有元（`$HOME/.codex`）からシンボリックリンクで扱うファイル群です。
+# 共有元の更新を即時反映したい設定・認証情報を対象にします。
 SYMLINK_FILES="
 AGENTS.md
 auth.json
 "
 
 # 共有元から実体コピーするファイル群です。
-# ローカルで微修正する可能性があるものをリンクではなくコピーしています。
+# ローカルで編集する可能性があるため、リンクではなくコピーします。
 COPY_FILES="
 config.toml
 "
 
-# リポジトリの .gitignore へ追記するエントリです。
-# 個人設定・キャッシュ・履歴など、VCS 管理すべきでないパスを列挙しています。
+# リポジトリの `.gitignore` に追記するエントリです。
+# 個人設定・キャッシュ・履歴など VCS 管理しないパスを列挙します。
 GITIGNORE_ENTRIES="
 $CODEX_HOME_RELATIVE/.personality_migration
 $CODEX_HOME_RELATIVE/AGENTS.md
@@ -40,13 +39,13 @@ if [ ! -d "$CODEX_HOME" ]; then
   mkdir -p "$CODEX_HOME"
 fi
 
-# .gitignore がなければ作成します（後段で追記するため）。
+# `.gitignore` がなければ作成します。
 if [ ! -f "$PWD/.gitignore" ]; then
   touch "$PWD/.gitignore"
 fi
 
 # 指定ファイルを「未作成時のみ」シンボリックリンクします。
-# 既存ファイルがある場合は上書きせず、利用者の状態を尊重します。
+# 既存ファイルがある場合は上書きしません。
 for name in $SYMLINK_FILES; do
   dest="$CODEX_HOME/$name"
   src="$HOME/.codex/$name"
@@ -56,7 +55,7 @@ for name in $SYMLINK_FILES; do
 done
 
 # 指定ファイルを「未作成時のみ」コピーします。
-# 既存ファイルを壊さないことを最優先にしています。
+# 既存ファイルを壊さないことを優先します。
 for name in $COPY_FILES; do
   dest="$CODEX_HOME/$name"
   src="$HOME/.codex/$name"
@@ -65,12 +64,12 @@ for name in $COPY_FILES; do
   fi
 done
 
-# .gitignore に同一行があるかを固定文字列・行完全一致で判定します。
+# `.gitignore` に同一行があるかを固定文字列の完全一致で判定します。
 for entry in $GITIGNORE_ENTRIES; do
   exists_in_gitignore() {
     grep -Fqx -- "$1" "$PWD/.gitignore"
   }
-  # 未登録エントリのみ追記し、重複行の増殖を防ぎます。
+  # 未登録エントリだけを追記して重複を防ぎます。
   if ! exists_in_gitignore "$entry"; then
     printf "%s\n" "$entry" >> "$PWD/.gitignore"
   fi
