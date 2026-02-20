@@ -38,7 +38,7 @@ done
 
 # uv が未導入なら、このスクリプト単体では失敗扱いにしません。
 # 理由:
-# - 現在の `setup_nvm.sh` と同じ失敗ポリシーにそろえるため
+# - 現在の `setup_nodejs.sh` と同じ失敗ポリシーにそろえるため
 # - uv 未使用の開発者環境を許容し、全体セットアップ停止を避けるため
 if ! command -v uv >/dev/null 2>&1; then
   echo "[uv] not found" >&2

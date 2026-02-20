@@ -29,6 +29,6 @@ if command -v direnv >/dev/null 2>&1; then
   fi
 fi
 
-bash "$PWD/.devenv/setup_nvm.sh"
+bash "$PWD/.devenv/setup_nodejs.sh"
 bash "$PWD/.devenv/setup_codex.sh"
-bash "$PWD/.devenv/setup_uv.sh"
+bash "$PWD/.devenv/setup_python.sh"
