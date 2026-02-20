@@ -13,7 +13,6 @@ set -euo pipefail
 # 本リポジトリでは nvm の `.nvmrc` と同様にローカルセットアップ側で生成する方針のため、
 # ここで ignore へ追加します。
 GITIGNORE_ENTRIES="
-.python-version
 .venv
 "
 

@@ -7,7 +7,6 @@ export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 
 # リポジトリの `.gitignore` に追記するエントリです。
 GITIGNORE_ENTRIES="
-.nvmrc
 node_modules
 "
 
