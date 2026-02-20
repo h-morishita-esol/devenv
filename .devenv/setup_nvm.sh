@@ -49,7 +49,13 @@ if [ -z "$target" ]; then
   exit 1
 fi
 
-# npm も更新しつつ対象 Node を導入します。
+# 既存インストールがあれば、リモート参照が必要な `nvm install` を避けます。
+# オフライン/制限環境でも再実行できるようにするためです。
+resolved="$(nvm version "$target" 2>/dev/null || true)"
+if [ -z "$resolved" ] || [ "$resolved" = "N/A" ]; then
+  # 未導入時のみ install を実行します。
+  nvm install "$target" --latest-npm
+fi
+
 # 続く `npm` コマンドを即利用できるよう `use` まで実行します。
-nvm install "$target" --latest-npm
 nvm use --silent "$target" >/dev/null

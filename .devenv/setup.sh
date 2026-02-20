@@ -19,5 +19,16 @@ for entry in $GITIGNORE_ENTRIES; do
 done
 
 ln -sfn "$PWD/.devenv/run.sh" "$PWD/.envrc"
+
+# direnv がある環境では `.envrc` を即時承認します。
+# 未導入/承認失敗でもセットアップ全体は継続します。
+if command -v direnv >/dev/null 2>&1; then
+  if ! direnv allow "$PWD"; then
+    echo "[direnv] failed to allow '$PWD/.envrc'" >&2
+    echo "[direnv] run manually: direnv allow $PWD" >&2
+  fi
+fi
+
 bash "$PWD/.devenv/setup_nvm.sh"
 bash "$PWD/.devenv/setup_codex.sh"
+bash "$PWD/.devenv/setup_uv.sh"
