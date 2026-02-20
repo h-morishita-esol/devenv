@@ -26,3 +26,9 @@ fi
 export CODEX_HOME_RELATIVE="$CODEX_HOME_RELATIVE"
 export CODEX_HOME_ABSOLUTE="$PWD/$CODEX_HOME_RELATIVE"
 export CODEX_HOME="$CODEX_HOME_ABSOLUTE"
+
+# ローカルインストール（`npm --prefix "$CODEX_HOME"`）時の実行パスを通します。
+# これにより `codex` を npx なしで直接実行できます。
+if [ -d "$CODEX_HOME/node_modules/.bin" ]; then
+  export PATH="$CODEX_HOME/node_modules/.bin:$PATH"
+fi
