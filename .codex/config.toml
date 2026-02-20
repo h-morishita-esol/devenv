@@ -6,5 +6,5 @@ personality = "friendly"
 [features]
 multi_agent = true
 
-[projects."/home/h-morishita/program/env_codex"]
+[projects."/home/h-morishita/program/devenv"]
 trust_level = "trusted"

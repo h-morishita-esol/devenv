@@ -1,1 +1,3 @@
-# codex cli 開発環境
+# Development Environment
+
+./.devenv/Readme.md を参照
