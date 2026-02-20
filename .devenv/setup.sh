@@ -18,6 +18,12 @@ for entry in $GITIGNORE_ENTRIES; do
   fi
 done
 
+# `.devenv/config.toml` が未作成のときだけテンプレートから生成します。
+# 既存のローカル編集を維持し、セットアップ再実行での上書きを防ぎます。
+if [ ! -e "$PWD/.devenv/config.toml" ]; then
+  cp "$PWD/.devenv/template/config.toml" "$PWD/.devenv/config.toml"
+fi
+
 ln -sfn "$PWD/.devenv/run.sh" "$PWD/.envrc"
 
 # direnv がある環境では `.envrc` を即時承認します。
@@ -32,3 +38,4 @@ fi
 bash "$PWD/.devenv/setup_nodejs.sh"
 bash "$PWD/.devenv/setup_codex.sh"
 bash "$PWD/.devenv/setup_python.sh"
+bash "$PWD/.devenv/setup_github.sh"

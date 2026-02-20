@@ -6,3 +6,4 @@ set -euo pipefail
 source "$PWD/.devenv/run_nodejs.sh"
 source "$PWD/.devenv/run_codex.sh"
 source "$PWD/.devenv/run_python.sh"
+source "$PWD/.devenv/run_github.sh"

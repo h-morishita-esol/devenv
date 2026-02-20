@@ -59,7 +59,9 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
     - `CODEX_HOME` と関連 PATH を設定
 
 ## コンフィグレーション
-- 対象ファイル: `./.devenv/config.toml`
+- テンプレート: `./.devenv/template/config.toml`
+- 生成ファイル: `./.devenv/config.toml`
+    - `./.devenv/setup.sh` 実行時にテンプレートからコピーされます。
 
 ### `CODEX_HOME_RELATIVE`
 - 役割:
@@ -72,7 +74,32 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
     CODEX_HOME_RELATIVE = ".codex"
     ```
 
+### `GIT_USER_NAME`
+- 役割:
+    - リポジトリローカル (`.git/config`) の `user.name` を指定します。
+- 既定値:
+    - 未設定または空文字のとき、`$HOME/.gitconfig` の `user.name` を使用します。
+- 記述例:
+
+    ```toml
+    GIT_USER_NAME = "Taro Yamada"
+    ```
+
+### `GIT_USER_EMAIL`
+- 役割:
+    - リポジトリローカル (`.git/config`) の `user.email` を指定します。
+- 既定値:
+    - 未設定または空文字のとき、`$HOME/.gitconfig` の `user.email` を使用します。
+- 記述例:
+
+    ```toml
+    GIT_USER_EMAIL = "taro@example.com"
+    ```
+
 ## codex cli メタデータ仕様
+- `./.devenv/config.toml`
+    - コピー元: `./.devenv/template/config.toml`
+    - 動作: 未作成時のみコピー（既存は上書きしません）。
 - `$CODEX_HOME/config.toml`
     - コピー元: `./.devenv/template/codex/config.toml`
     - 動作: 未作成時のみコピー（既存は上書きしません）。
