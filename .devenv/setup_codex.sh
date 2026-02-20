@@ -60,7 +60,7 @@ AGENTS.md
 auth.json
 "
 
-# 共有元から実体コピーするファイル群です。
+# テンプレートから実体コピーするファイル群です。
 # ローカルで編集する可能性があるため、リンクではなくコピーします。
 COPY_FILES="
 config.toml
@@ -108,7 +108,7 @@ done
 # 既存ファイルを壊さないことを優先します。
 for name in $COPY_FILES; do
   dest="$CODEX_HOME/$name"
-  src="$HOME/.codex/$name"
+  src="$PWD/.devenv/template/codex/$name"
   if [ -e "$src" ] && [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
     cp "$src" "$dest"
   fi

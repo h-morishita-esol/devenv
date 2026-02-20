@@ -1,1 +1,4 @@
 {"id":"019c75e9-6afd-7d70-adef-a81e5f53c466","thread_name":".envrc を .devenv/rnvrc.sh に移動","updated_at":"2026-02-19T13:34:30.932383213Z"}
+{"id":"019c789e-425a-7ec1-975d-9632b3c19a90","thread_name":".codex/config.toml を $HOME からではなく .devenv からコピーする","updated_at":"2026-02-20T01:20:19.192922431Z"}
+{"id":"019c788c-3b32-72b1-8ee4-5174f3060082","thread_name":"codexコマンドがインストールされていなければインストールする","updated_at":"2026-02-20T01:20:49.920359893Z"}
+{"id":"019c7883-24af-7ac0-ada0-aa2eefc49a1c","thread_name":"setup時のエラーを解消","updated_at":"2026-02-20T01:21:33.430512056Z"}
