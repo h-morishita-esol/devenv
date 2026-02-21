@@ -4,23 +4,17 @@
 # `.serena/project.yml` 更新スクリプトを実行します。
 CONFIG_FILE="$PWD/.devenv/config.toml"
 
-finish() {
-  if [ "${BASH_SOURCE[0]}" != "$0" ]; then
-    return "$1"
+main() {
+  if [ ! -f "$CONFIG_FILE" ]; then
+    return 0
   fi
-  exit "$1"
-}
 
-if [ ! -f "$CONFIG_FILE" ]; then
-  finish 0
-fi
+  if ! command -v python3 >/dev/null 2>&1; then
+    return 0
+  fi
 
-if ! command -v python3 >/dev/null 2>&1; then
-  finish 0
-fi
-
-enabled="$({
-  python3 - "$CONFIG_FILE" <<'PY'
+  enabled="$({
+    python3 - "$CONFIG_FILE" <<'PY'
 from pathlib import Path
 import sys
 import tomllib
@@ -38,10 +32,22 @@ if isinstance(serena, dict) and serena.get("enable") is True:
 else:
     print("false")
 PY
-} 2>/dev/null || echo "false")"
+  } 2>/dev/null || echo "false")"
 
-if [ "$enabled" != "true" ]; then
-  finish 0
+  if [ "$enabled" != "true" ]; then
+    return 0
+  fi
+
+  python3 "$PWD/.devenv/serena/update_serena_config.py" || {
+    echo "[serena] failed to update .serena/project.yml" >&2
+    return 0
+  }
+}
+
+if [ "${BASH_SOURCE[0]}" != "$0" ]; then
+  main "$@"
+  return $?
 fi
 
-python3 "$PWD/.devenv/serena/update_serena_config.py"
+main "$@"
+exit $?

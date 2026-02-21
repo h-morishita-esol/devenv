@@ -9,3 +9,4 @@
 {"id":"019c7f2e-500d-7530-8d72-58fa07404d63","thread_name":".serena/project.yml が存在しないときにエラーが発生する障害を修正","updated_at":"2026-02-21T07:59:55.672234182Z"}
 {"id":"019c7f38-0d19-7683-beb7-21fb2770325a","thread_name":"run.sh から clangd を実行する","updated_at":"2026-02-21T08:14:16.853326991Z"}
 {"id":"019c7f44-0acc-7992-b541-aecb2b534eac","thread_name":"run.sh から serena を実行する","updated_at":"2026-02-21T08:22:05.83761529Z"}
+{"id":"019c7f4b-f0ca-76e2-9fc4-b6d4c1160196","thread_name":"direnv allow でエラーが発生するのを修正","updated_at":"2026-02-21T08:27:16.130877653Z"}
