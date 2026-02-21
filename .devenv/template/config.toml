@@ -7,3 +7,7 @@ CODEX_HOME_RELATIVE = ".codex"
 exclude_path = []
 # .clangd に Index.Background: Skip を出力するパス
 background_skip_path = []
+
+[serena]
+# .serena/project.yml に ignored_paths を出力するパス
+ignored_paths = []
