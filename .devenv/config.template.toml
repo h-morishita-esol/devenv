@@ -3,6 +3,7 @@ CODEX_HOME_RELATIVE = ".codex"
 # GIT_USER_EMAIL = "taro@example.com"
 
 [clangd]
+enable = false
 # .clangd の CompileFlags.PathMatch 生成対象から除外するパス
 # for emcos:
 #   exclude_path = [ "source/emcos-runtime/src/crt/llvm-project" ]
