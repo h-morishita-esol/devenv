@@ -75,7 +75,7 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
     codex_home_relative = ".codex"
     ```
 
-### `[github].user_name`
+### `[git].user_name`
 - 役割:
     - リポジトリローカル (`.git/config`) の `user.name` を指定します。
 - 既定値:
@@ -83,11 +83,11 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 - 記述例:
 
     ```toml
-    [github]
+    [git]
     user_name = "Taro Yamada"
     ```
 
-### `[github].user_email`
+### `[git].user_email`
 - 役割:
     - リポジトリローカル (`.git/config`) の `user.email` を指定します。
 - 既定値:
@@ -95,7 +95,7 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 - 記述例:
 
     ```toml
-    [github]
+    [git]
     user_email = "taro@example.com"
     ```
 

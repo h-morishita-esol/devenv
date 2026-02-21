@@ -12,3 +12,4 @@
 {"id":"019c7f4b-f0ca-76e2-9fc4-b6d4c1160196","thread_name":"direnv allow でエラーが発生するのを修正","updated_at":"2026-02-21T08:27:16.130877653Z"}
 {"id":"019c7f51-0152-7080-96b6-bd5a3d12e815","thread_name":"config.toml のコメントを整理","updated_at":"2026-02-21T08:32:54.805128185Z"}
 {"id":"019c7f55-5f5d-7cb0-9b58-2b25f5dd12f5","thread_name":"config.toml に [codex] と [github] フィールドを追加","updated_at":"2026-02-21T08:41:34.335814065Z"}
+{"id":"019c7f60-808c-7f03-b01d-ba79f9fa67d5","thread_name":".devenv/github を .devenv/git に変更","updated_at":"2026-02-21T08:50:28.722628983Z"}

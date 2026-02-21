@@ -23,12 +23,12 @@ read_toml_string() {
   ' "$file"
 }
 
-# `[github].user_name` / `[github].user_email` があれば優先。なければ `~/.gitconfig` の既定値を使用します。
+# `[git].user_name` / `[git].user_email` があれば優先。なければ `~/.gitconfig` の既定値を使用します。
 GIT_USER_NAME=""
 GIT_USER_EMAIL=""
 if [ -f "$CONFIG_FILE" ]; then
-  GIT_USER_NAME="$(read_toml_string "github" "user_name" "$CONFIG_FILE")"
-  GIT_USER_EMAIL="$(read_toml_string "github" "user_email" "$CONFIG_FILE")"
+  GIT_USER_NAME="$(read_toml_string "git" "user_name" "$CONFIG_FILE")"
+  GIT_USER_EMAIL="$(read_toml_string "git" "user_email" "$CONFIG_FILE")"
 fi
 if [ -z "$GIT_USER_NAME" ]; then
   GIT_USER_NAME="$(git config --file "$HOME/.gitconfig" --get user.name 2>/dev/null || true)"

@@ -5,12 +5,12 @@
 [codex]
 codex_home_relative = ".codex"
 
-# [github] セクション
+# [git] セクション
 # user_name:
 #   - git user.name に反映する値
 # user_email:
 #   - git user.email に反映する値
-[github]
+[git]
 # user_name = "Taro Yamada"
 # user_email = "taro@example.com"
 
