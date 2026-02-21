@@ -37,5 +37,6 @@ fi
 
 bash "$PWD/.devenv/node.js/setup.sh"
 bash "$PWD/.devenv/codex/setup.sh"
+bash "$PWD/.devenv/serena/setup.sh"
 bash "$PWD/.devenv/python/setup.sh"
 bash "$PWD/.devenv/git/setup.sh"

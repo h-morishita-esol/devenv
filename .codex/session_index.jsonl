@@ -14,3 +14,4 @@
 {"id":"019c7f55-5f5d-7cb0-9b58-2b25f5dd12f5","thread_name":"config.toml に [codex] と [github] フィールドを追加","updated_at":"2026-02-21T08:41:34.335814065Z"}
 {"id":"019c7f60-808c-7f03-b01d-ba79f9fa67d5","thread_name":".devenv/github を .devenv/git に変更","updated_at":"2026-02-21T08:50:28.722628983Z"}
 {"id":"019c7f64-eafb-7971-8d31-400f95283d25","thread_name":"Readme に clangd, serena について追記","updated_at":"2026-02-21T08:59:32.443715854Z"}
+{"id":"019c7f6d-277d-7413-896a-200c70ce1f21","thread_name":"serena を使うときは codex/config.toml に serena mcp の設定を追記する","updated_at":"2026-02-21T09:14:56.662905438Z"}
