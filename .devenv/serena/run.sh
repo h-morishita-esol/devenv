@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# .devenv/config.toml の [clangd].enable が true のときだけ
-# .clangd 生成スクリプトを実行します。
+# .devenv/config.toml の [serena].enable が true のときだけ
+# `.serena/project.yml` 更新スクリプトを実行します。
 CONFIG_FILE="$PWD/.devenv/config.toml"
 
 finish() {
@@ -32,8 +32,8 @@ except Exception:
     print("false")
     raise SystemExit(0)
 
-clangd = data.get("clangd")
-if isinstance(clangd, dict) and clangd.get("enable") is True:
+serena = data.get("serena")
+if isinstance(serena, dict) and serena.get("enable") is True:
     print("true")
 else:
     print("false")
@@ -44,4 +44,4 @@ if [ "$enabled" != "true" ]; then
   finish 0
 fi
 
-python3 "$PWD/.devenv/clangd/generate_clangd.py"
+python3 "$PWD/.devenv/serena/update_serena_config.py"

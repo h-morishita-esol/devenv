@@ -14,6 +14,7 @@ exclude_path = []
 background_skip_path = []
 
 [serena]
+enable = false
 # .serena/project.yml に ignored_paths を出力するパス
 # for emcos:
 #   ignored_paths = [ "source/emcos-runtime/src/crt/llvm-project" ]
