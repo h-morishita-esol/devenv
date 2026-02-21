@@ -4,10 +4,16 @@ CODEX_HOME_RELATIVE = ".codex"
 
 [clangd]
 # .clangd の CompileFlags.PathMatch 生成対象から除外するパス
+# for emcos:
+#   exclude_path = [ "source/emcos-runtime/src/crt/llvm-project" ]
 exclude_path = []
 # .clangd に Index.Background: Skip を出力するパス
+# for emcos:
+#   background_skip_path = [ "source/emcos-runtime/src/crt/llvm-project" ]
 background_skip_path = []
 
 [serena]
 # .serena/project.yml に ignored_paths を出力するパス
+# for emcos:
+#   ignored_paths = [ "source/emcos-runtime/src/crt/llvm-project" ]
 ignored_paths = []
