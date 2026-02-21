@@ -5,17 +5,30 @@
 CONFIG_FILE="$PWD/.devenv/config.toml"
 
 read_toml_string() {
-  local key="$1"
-  local file="$2"
-  sed -n "s/^[[:space:]]*${key}[[:space:]]*=[[:space:]]*\"\\([^\"]*\\)\".*/\\1/p" "$file" | head -n1
+  local section="$1"
+  local key="$2"
+  local file="$3"
+  awk -v target_section="$section" -v target_key="$key" '
+    /^[[:space:]]*\[/ {
+      in_section = ($0 ~ "^[[:space:]]*\\[" target_section "\\][[:space:]]*$")
+      next
+    }
+    in_section {
+      pattern = "^[[:space:]]*" target_key "[[:space:]]*=[[:space:]]*\"([^\"]*)\""
+      if (match($0, pattern, m)) {
+        print m[1]
+        exit
+      }
+    }
+  ' "$file"
 }
 
-# `GIT_USER_NAME` / `GIT_USER_EMAIL` があれば優先。なければ `~/.gitconfig` の既定値を使用します。
+# `[github].user_name` / `[github].user_email` があれば優先。なければ `~/.gitconfig` の既定値を使用します。
 GIT_USER_NAME=""
 GIT_USER_EMAIL=""
 if [ -f "$CONFIG_FILE" ]; then
-  GIT_USER_NAME="$(read_toml_string "GIT_USER_NAME" "$CONFIG_FILE")"
-  GIT_USER_EMAIL="$(read_toml_string "GIT_USER_EMAIL" "$CONFIG_FILE")"
+  GIT_USER_NAME="$(read_toml_string "github" "user_name" "$CONFIG_FILE")"
+  GIT_USER_EMAIL="$(read_toml_string "github" "user_email" "$CONFIG_FILE")"
 fi
 if [ -z "$GIT_USER_NAME" ]; then
   GIT_USER_NAME="$(git config --file "$HOME/.gitconfig" --get user.name 2>/dev/null || true)"

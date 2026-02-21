@@ -63,18 +63,19 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 - 生成ファイル: `./.devenv/config.toml`
     - `./.devenv/setup.sh` 実行時にテンプレートからコピーされます。
 
-### `CODEX_HOME_RELATIVE`
+### `[codex].codex_home_relative`
 - 役割:
     - codex cli の設定ファイルを置くディレクトリを、プロジェクトルートからの相対パスで指定します。
 - 既定値:
-    - `CODEX_HOME_RELATIVE` が未設定または空文字のとき、`.codex` を使用します。
+    - `[codex].codex_home_relative` が未設定または空文字のとき、`.codex` を使用します。
 - 記述例:
 
     ```toml
-    CODEX_HOME_RELATIVE = ".codex"
+    [codex]
+    codex_home_relative = ".codex"
     ```
 
-### `GIT_USER_NAME`
+### `[github].user_name`
 - 役割:
     - リポジトリローカル (`.git/config`) の `user.name` を指定します。
 - 既定値:
@@ -82,10 +83,11 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 - 記述例:
 
     ```toml
-    GIT_USER_NAME = "Taro Yamada"
+    [github]
+    user_name = "Taro Yamada"
     ```
 
-### `GIT_USER_EMAIL`
+### `[github].user_email`
 - 役割:
     - リポジトリローカル (`.git/config`) の `user.email` を指定します。
 - 既定値:
@@ -93,7 +95,8 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 - 記述例:
 
     ```toml
-    GIT_USER_EMAIL = "taro@example.com"
+    [github]
+    user_email = "taro@example.com"
     ```
 
 ## codex cli メタデータ仕様

@@ -6,13 +6,30 @@ CONFIG_FILE="$PWD/.devenv/config.toml"
 # config.toml に設定がない場合は既定値 ".codex" を使います。
 CODEX_HOME_RELATIVE=""
 
+read_toml_section_string() {
+  local section="$1"
+  local key="$2"
+  local file="$3"
+  awk -v target_section="$section" -v target_key="$key" '
+    /^[[:space:]]*\[/ {
+      in_section = ($0 ~ "^[[:space:]]*\\[" target_section "\\][[:space:]]*$")
+      next
+    }
+    in_section {
+      pattern = "^[[:space:]]*" target_key "[[:space:]]*=[[:space:]]*\"([^\"]*)\""
+      if (match($0, pattern, m)) {
+        print m[1]
+        exit
+      }
+    }
+  ' "$file"
+}
+
 if [ -f "$CONFIG_FILE" ]; then
-  # TOML から `CODEX_HOME_RELATIVE="..."` を抽出します。
+  # TOML の [codex] セクションから `codex_home_relative="..."` を抽出します。
   # 先頭/末尾の空白を許容し、最初の一致だけ採用します。
   # 取得できない場合は空文字のままにし、後段で既定値へフォールバックします。
-  CODEX_HOME_RELATIVE=$(
-    sed -n 's/^[[:space:]]*CODEX_HOME_RELATIVE[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' "$CONFIG_FILE" | head -n1
-  )
+  CODEX_HOME_RELATIVE="$(read_toml_section_string "codex" "codex_home_relative" "$CONFIG_FILE")"
 fi
 
 if [ -z "$CODEX_HOME_RELATIVE" ]; then
