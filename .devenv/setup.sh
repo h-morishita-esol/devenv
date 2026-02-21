@@ -21,7 +21,7 @@ done
 # `.devenv/config.toml` が未作成のときだけテンプレートから生成します。
 # 既存のローカル編集を維持し、セットアップ再実行での上書きを防ぎます。
 if [ ! -e "$PWD/.devenv/config.toml" ]; then
-  cp "$PWD/.devenv/template/config.toml" "$PWD/.devenv/config.toml"
+  cp "$PWD/.devenv/config.template.toml" "$PWD/.devenv/config.toml"
 fi
 
 ln -sfn "$PWD/.devenv/run.sh" "$PWD/.envrc"
@@ -35,7 +35,7 @@ if command -v direnv >/dev/null 2>&1; then
   fi
 fi
 
-bash "$PWD/.devenv/setup_nodejs.sh"
-bash "$PWD/.devenv/setup_codex.sh"
-bash "$PWD/.devenv/setup_python.sh"
-bash "$PWD/.devenv/setup_github.sh"
+bash "$PWD/.devenv/node.js/setup.sh"
+bash "$PWD/.devenv/codex/setup.sh"
+bash "$PWD/.devenv/python/setup.sh"
+bash "$PWD/.devenv/github/setup.sh"

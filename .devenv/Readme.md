@@ -59,7 +59,7 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
     - `CODEX_HOME` と関連 PATH を設定
 
 ## コンフィグレーション
-- テンプレート: `./.devenv/template/config.toml`
+- テンプレート: `./.devenv/config.template.toml`
 - 生成ファイル: `./.devenv/config.toml`
     - `./.devenv/setup.sh` 実行時にテンプレートからコピーされます。
 
@@ -98,10 +98,10 @@ codex cli が作業を自動化するために必要な、Node.js と Python の
 
 ## codex cli メタデータ仕様
 - `./.devenv/config.toml`
-    - コピー元: `./.devenv/template/config.toml`
+    - コピー元: `./.devenv/config.template.toml`
     - 動作: 未作成時のみコピー（既存は上書きしません）。
 - `$CODEX_HOME/config.toml`
-    - コピー元: `./.devenv/template/codex/config.toml`
+    - コピー元: `./.devenv/codex/template/config.toml`
     - 動作: 未作成時のみコピー（既存は上書きしません）。
 - `$CODEX_HOME/AGENTS.md`
     - リンク元: `$HOME/.codex/AGENTS.md`

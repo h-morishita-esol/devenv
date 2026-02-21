@@ -6,7 +6,7 @@
 
 使用方法:
     1) リポジトリルートで実行
-       python3 .devenv/scripts/update_serena_config.py
+       python3 .devenv/serena/update_serena_config.py
     2) `.serena/project.yml` の `ignored_paths` が更新されます
        - 既存値は保持
        - 新規値を追加

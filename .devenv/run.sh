@@ -3,7 +3,7 @@ set -euo pipefail
 
 # direnv などから `source` される入口です。
 # 下位スクリプトで export した値を、呼び出し元シェルへ反映します。
-source "$PWD/.devenv/run_nodejs.sh"
-source "$PWD/.devenv/run_codex.sh"
-source "$PWD/.devenv/run_python.sh"
-source "$PWD/.devenv/run_github.sh"
+source "$PWD/.devenv/node.js/run.sh"
+source "$PWD/.devenv/codex/run.sh"
+source "$PWD/.devenv/python/run.sh"
+source "$PWD/.devenv/github/run.sh"

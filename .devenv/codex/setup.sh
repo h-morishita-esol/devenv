@@ -3,8 +3,8 @@ set -euo pipefail
 
 # Codex 用ホーム配下を初期化します。
 # 必要ファイルのリンク/コピーと `.gitignore` 追記を行います。
-# 先に `run_codex.sh` を読み込み、CODEX_HOME 系の値を確定させます。
-source "$PWD/.devenv/run_codex.sh"
+# 先に `.devenv/codex/run.sh` を読み込み、CODEX_HOME 系の値を確定させます。
+source "$PWD/.devenv/codex/run.sh"
 
 # Codex の導入状態を判定します。
 LOCAL_CODEX_BIN="$CODEX_HOME/node_modules/.bin/codex"
@@ -108,7 +108,7 @@ done
 # 既存ファイルを壊さないことを優先します。
 for name in $COPY_FILES; do
   dest="$CODEX_HOME/$name"
-  src="$PWD/.devenv/template/codex/$name"
+  src="$PWD/.devenv/codex/template/$name"
   if [ -e "$src" ] && [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
     cp "$src" "$dest"
   fi
