@@ -175,6 +175,9 @@ def main() -> int:
     # 1. config.toml から追加対象パスを取得
     # 2. project.yml の ignored_paths にマージ
     # 3. 変更有無を標準出力に表示
+    if not PROJECT_YML.exists():
+        return 0
+
     new_paths = read_paths_from_config(CONFIG_TOML)
     changed = merge_ignored_paths(PROJECT_YML, new_paths)
     print("updated" if changed else "no changes")
