@@ -1,19 +1,19 @@
 CODEX_HOME_RELATIVE = ".codex"
-# GIT_USER_NAME = "Taro Yamada"
-# GIT_USER_EMAIL = "taro@example.com"
+# GIT_USER_NAME = "t-esol"
+# GIT_USER_EMAIL = "t-esol@esol.co.jp"
 
 # [clangd] セクション
 # enable: clangd 向け設定生成の有効/無効
 # exclude_path: .clangd の CompileFlags.PathMatch 生成対象から除外するパス
 # background_skip_path: .clangd に Index.Background: Skip を出力するパス
 [clangd]
-enable = false
-exclude_path = []
-background_skip_path = []
+enable = true
+exclude_path = [ "source/emcos-runtime/src/crt/llvm-project" ]
+background_skip_path = [ "source/emcos-runtime/src/crt/llvm-project" ]
 
 # [serena] セクション
 # enable: serena 向け設定生成の有効/無効
 # ignored_paths: .serena/project.yml に ignored_paths を出力するパス
 [serena]
-enable = false
-ignored_paths = []
+enable = true
+ignored_paths = [ "source/emcos-runtime/src/crt/llvm-project" ]
