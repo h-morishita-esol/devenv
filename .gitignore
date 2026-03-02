@@ -17,3 +17,6 @@ node_modules
 .nvmrc
 .gitignore
 .python-version
+.codex/state_5.sqlite
+.codex/state_5.sqlite-shm
+.codex/state_5.sqlite-wal
