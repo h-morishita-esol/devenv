@@ -2,11 +2,16 @@
 set -euo pipefail
 
 # 開発環境セットアップの統合入口です。
-# `.envrc` のリンク作成、Codex 初期化、nvm/Node 初期化を順に実行します。
+# `.envrc` のリンク作成、設定存在確認、Codex 初期化、nvm/Node 初期化を順に実行します。
 # `set -euo pipefail` で未定義変数や途中失敗を即時検出し、不完全状態を防ぎます。
 GITIGNORE_ENTRIES="
 .envrc
+.devenvrc
 "
+
+if [ ! -f "$PWD/.gitignore" ]; then
+  touch "$PWD/.gitignore"
+fi
 
 for entry in $GITIGNORE_ENTRIES; do
   exists_in_gitignore() {
@@ -18,21 +23,12 @@ for entry in $GITIGNORE_ENTRIES; do
   fi
 done
 
-# `.devenv/config.toml` が未作成のときだけテンプレートから生成します。
-# 既存のローカル編集を維持し、セットアップ再実行での上書きを防ぎます。
-if [ ! -e "$PWD/.devenv/config.toml" ]; then
-  cp "$PWD/.devenv/config.template.toml" "$PWD/.devenv/config.toml"
-fi
-
 ln -sfn "$PWD/.devenv/run.sh" "$PWD/.envrc"
 
-# direnv がある環境では `.envrc` を即時承認します。
-# 未導入/承認失敗でもセットアップ全体は継続します。
-if command -v direnv >/dev/null 2>&1; then
-  if ! direnv allow "$PWD"; then
-    echo "[direnv] failed to allow '$PWD/.envrc'" >&2
-    echo "[direnv] run manually: direnv allow $PWD" >&2
-  fi
+if [ ! -f "$PWD/.devenvrc" ]; then
+  echo "[devenv] './.devenvrc' がありません。" >&2
+  echo "[devenv] 次を実行してください: cp ./.devenv/template/.devenvrc ./.devenvrc" >&2
+  exit 1
 fi
 
 bash "$PWD/.devenv/node.js/setup.sh"

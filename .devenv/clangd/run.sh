@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# .devenv/config.toml の [clangd].enable が true のときだけ
+# .devenvrc の [clangd].enable が true のときだけ
 # .clangd 生成スクリプトを実行します。
-CONFIG_FILE="$PWD/.devenv/config.toml"
+CONFIG_FILE="$PWD/.devenvrc"
 
 main() {
   if [ ! -f "$CONFIG_FILE" ]; then
@@ -39,7 +39,7 @@ PY
   fi
 
   # シェル入場を壊さないため、生成失敗時は警告のみで継続します。
-  python3 "$PWD/.devenv/clangd/generate_clangd.py" || {
+  python3 "$PWD/.devenv/clangd/generate_clangd.py" --project-root "$PWD" || {
     echo "[clangd] failed to generate .clangd" >&2
     return 0
   }

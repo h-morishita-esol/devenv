@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# .devenv/config.toml の [serena].enable が true のときだけ
+# .devenvrc の [serena].enable が true のときだけ
 # `.serena/project.yml` 更新スクリプトを実行します。
-CONFIG_FILE="$PWD/.devenv/config.toml"
+CONFIG_FILE="$PWD/.devenvrc"
 
 main() {
   if [ ! -f "$CONFIG_FILE" ]; then
@@ -38,7 +38,7 @@ PY
     return 0
   fi
 
-  python3 "$PWD/.devenv/serena/update_serena_config.py" || {
+  python3 "$PWD/.devenv/serena/update_serena_config.py" --project-root "$PWD" || {
     echo "[serena] failed to update .serena/project.yml" >&2
     return 0
   }

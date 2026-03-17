@@ -2,8 +2,8 @@
 
 # Codex 用の環境変数を計算して export します。
 # `source` 前提のため、値は呼び出し元シェルに残ります。
-CONFIG_FILE="$PWD/.devenv/config.toml"
-# config.toml に設定がない場合は既定値 ".codex" を使います。
+CONFIG_FILE="$PWD/.devenvrc"
+# `.devenvrc` に設定がない場合は既定値 ".codex" を使います。
 CODEX_HOME_RELATIVE=""
 
 read_toml_section_string() {

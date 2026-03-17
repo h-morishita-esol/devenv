@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
 目的:
-    `.devenv/config.toml` の `[serena].ignored_paths` を読み取り、
+    `./.devenvrc` の `[serena].ignored_paths` を読み取り、
     `.serena/project.yml` の `ignored_paths` に追記・同期します。
 
 使用方法:
     1) リポジトリルートで実行
-       python3 .devenv/serena/update_serena_config.py
+       python3 .devenv/serena/update_serena_config.py --project-root /path/to/project
     2) `.serena/project.yml` の `ignored_paths` が更新されます
        - 既存値は保持
        - 新規値を追加
@@ -14,6 +14,7 @@
 """
 from __future__ import annotations
 
+import argparse
 import ast
 import json
 import re
@@ -25,9 +26,15 @@ except ModuleNotFoundError:  # pragma: no cover
     import tomli as tomllib  # type: ignore
 
 
-ROOT = Path(__file__).resolve().parents[2]
-CONFIG_TOML = ROOT / ".devenv" / "config.toml"
-PROJECT_YML = ROOT / ".serena" / "project.yml"
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        required=True,
+        help="Project root",
+    )
+    return parser.parse_args()
 
 
 def read_paths_from_config(config_path: Path) -> list[str]:
@@ -172,14 +179,19 @@ def merge_ignored_paths(project_path: Path, new_paths: list[str]) -> bool:
 
 
 def main() -> int:
-    # 1. config.toml から追加対象パスを取得
+    # 1. .devenvrc から追加対象パスを取得
     # 2. project.yml の ignored_paths にマージ
     # 3. 変更有無を標準出力に表示
-    if not PROJECT_YML.exists():
+    args = parse_args()
+    project_root = args.project_root.resolve()
+    config_toml = project_root / ".devenvrc"
+    project_yml = project_root / ".serena" / "project.yml"
+
+    if not project_yml.exists():
         return 0
 
-    new_paths = read_paths_from_config(CONFIG_TOML)
-    changed = merge_ignored_paths(PROJECT_YML, new_paths)
+    new_paths = read_paths_from_config(config_toml)
+    changed = merge_ignored_paths(project_yml, new_paths)
     print("updated" if changed else "no changes")
     return 0
 

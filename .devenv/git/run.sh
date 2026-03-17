@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# GitHub / Git ユーザー設定を `config.toml` から解決して export します。
+# GitHub / Git ユーザー設定を `.devenvrc` から解決して export します。
 # `source` 前提のため、値は呼び出し元シェルへ反映されます。
-CONFIG_FILE="$PWD/.devenv/config.toml"
+CONFIG_FILE="$PWD/.devenvrc"
 
 read_toml_string() {
   local section="$1"
@@ -41,7 +41,7 @@ export GIT_USER_NAME="${GIT_USER_NAME:-}"
 export GIT_USER_EMAIL="${GIT_USER_EMAIL:-}"
 
 # `source` 時点で、必要ならリポジトリローカル設定へ同期します。
-# setup 実行有無に依存せず、`config.toml` の変更を `.git/config` へ反映させます。
+# setup 実行有無に依存せず、`.devenvrc` の変更を `.git/config` へ反映させます。
 sync_git_local_identity() {
   # Git 管理外ディレクトリでは何もしません。
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then

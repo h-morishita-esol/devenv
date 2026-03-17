@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# `.devenv/config.toml` の [serena].enable が true のときだけ、
+# `.devenvrc` の [serena].enable が true のときだけ、
 # `$CODEX_HOME/config.toml` に serena の MCP 設定を追記します。
-CONFIG_FILE="$PWD/.devenv/config.toml"
+CONFIG_FILE="$PWD/.devenvrc"
 SERENA_MCP_CONFIG_SNIPPET="$PWD/.devenv/serena/template/codex_mcp_serena.toml"
 
 main() {

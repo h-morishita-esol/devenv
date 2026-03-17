@@ -9,11 +9,11 @@
 - ディレクトリ命名規則に依存せず、compile_commands の実データのみで動作します。
 
 使い方:
-1. 既定（リポジトリルートを自動判定し `.clangd` を上書き）
-   python3 .devenv/clangd/generate_clangd.py
+1. プロジェクトルートを指定して `.clangd` を上書き
+   python3 .devenv/clangd/generate_clangd.py --project-root /path/to/project
 2. 出力先を明示
-   python3 .devenv/clangd/generate_clangd.py --output /path/to/.clangd
-3. `.devenv/config.toml` で除外を指定（任意）
+   python3 .devenv/clangd/generate_clangd.py --project-root /path/to/project --output /path/to/.clangd
+3. `./.devenvrc` で除外を指定（任意）
    [clangd]
    # .clangd の CompileFlags.PathMatch 生成対象から除外するパス
    exclude_path = ["source/foo/generated", "source/bar/test"]
@@ -61,23 +61,18 @@ class NodeSelection:
 
 
 def parse_args() -> argparse.Namespace:
-    # スクリプト配置:
-    #   <repo>/.devenv/clangd/generate_clangd.py
-    # の想定なので、parents[2] で repo-root を得る。
-    script_path = Path(__file__).resolve()
-    default_repo_root = script_path.parents[2]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--repo-root",
+        "--project-root",
         type=Path,
-        default=default_repo_root,
-        help=f"Repository root (default: {default_repo_root})",
+        required=True,
+        help="Project root",
     )
     parser.add_argument(
         "--output",
         type=Path,
         default=None,
-        help="Output .clangd path (default: <repo-root>/.clangd)",
+        help="Output .clangd path (default: <project-root>/.clangd)",
     )
     return parser.parse_args()
 
@@ -92,7 +87,7 @@ def normalize_path_prefix(prefix: str) -> str:
 
 
 def load_clangd_config(repo_root: Path) -> Tuple[List[str], List[str]]:
-    # `.devenv/config.toml` から [clangd] 設定を読み込む。
+    # `./.devenvrc` から [clangd] 設定を読み込む。
     # - exclude_path:
     #   compile_commands 探索 / PathMatch 生成から除外するパス。
     #   ここに入れたファイルは DB 割当にも PathMatch にも現れない。
@@ -107,7 +102,7 @@ def load_clangd_config(repo_root: Path) -> Tuple[List[str], List[str]]:
     # 要件上、以下はいずれも非エラー扱い:
     # - ファイルが存在しない
     # - [clangd] セクションが存在しない
-    config_path = repo_root / ".devenv" / "config.toml"
+    config_path = repo_root / ".devenvrc"
     if not config_path.exists():
         return [], []
     try:
@@ -308,6 +303,8 @@ def regex_for_path(path: str, is_file_leaf: bool) -> str:
     # - 葉ノード（単一ファイル）: 完全一致
     # - それ以外（ディレクトリ境界）: 配下すべて
     # 除外は PathExclude 側に寄せるため、ここでは PathMatch を最小化する。
+    if not path:
+        return "^.*"
     escaped = re.escape(path)
     if is_file_leaf:
         return f"^{escaped}$"
@@ -402,7 +399,7 @@ def render_clangd(
 def main() -> int:
     # 1) 入力解決
     args = parse_args()
-    repo_root = args.repo_root.resolve()
+    repo_root = args.project_root.resolve()
     output = args.output.resolve() if args.output else repo_root / ".clangd"
     config_excludes, config_background_skips = load_clangd_config(repo_root)
     excluded_prefixes = tuple(sorted(set(config_excludes)))
