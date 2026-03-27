@@ -70,8 +70,10 @@ config.toml
 # 個人設定・キャッシュ・履歴など VCS 管理しないパスを列挙します。
 GITIGNORE_ENTRIES="
 $CODEX_HOME_RELATIVE/.personality_migration
+$CODEX_HOME_RELATIVE/.tmp
 $CODEX_HOME_RELATIVE/AGENTS.md
 $CODEX_HOME_RELATIVE/auth.json
+$CODEX_HOME_RELATIVE/cache
 $CODEX_HOME_RELATIVE/history.jsonl
 $CODEX_HOME_RELATIVE/log
 $CODEX_HOME_RELATIVE/logs_1.sqlite
@@ -81,6 +83,7 @@ $CODEX_HOME_RELATIVE/models_cache.json
 $CODEX_HOME_RELATIVE/node_modules
 $CODEX_HOME_RELATIVE/package-lock.json
 $CODEX_HOME_RELATIVE/package.json
+$CODEX_HOME_RELATIVE/plugins/cache
 $CODEX_HOME_RELATIVE/shell_snapshots
 $CODEX_HOME_RELATIVE/skills/.system
 $CODEX_HOME_RELATIVE/state_5.sqlite

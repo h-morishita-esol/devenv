@@ -8,3 +8,5 @@ suppress_unstable_features_warning = true
 multi_agent = true
 default_mode_request_user_input = true
 
+[plugins."github@openai-curated"]
+enabled = true
